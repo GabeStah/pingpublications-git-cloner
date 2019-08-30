@@ -1,0 +1,23 @@
+# WebStorm
+.idea
+
+# Environment Vars
+.env
+docker/.env
+
+# Package Management
+package-lock.json
+yarn.lock
+yarn-error.log
+
+# Testing
+coverage
+
+# Distribution
+dist
+
+# Remote Modules
+node_modules
+
+# Docker
+docker-compose.yml
