@@ -1,30 +1,30 @@
-// See: https://github.com/webpack/webpack/blob/master/lib/WebpackOptionsApply.js#L231
-// const hidden = options.devtool.includes("hidden");
-// const inline = options.devtool.includes("inline");
-
-// See: https://github.com/webpack/webpack/blob/master/lib/WebpackOptionsApply.js#L366
-// See: https://github.com/webpack/webpack/blob/master/lib/NoEmitOnErrorsPlugin.js
-// if (options.optimization.noEmitOnErrors) {
-//   const NoEmitOnErrorsPlugin = require("./NoEmitOnErrorsPlugin");
-//   new NoEmitOnErrorsPlugin().apply(compiler);
-// }
-
 import { Repository } from './Repository';
 import { Options } from './Options';
 import ApolloClient, { gql } from 'apollo-boost';
 import Git from 'nodegit';
-// import { config } from '../index';
+import { findConfiguration, findConfigurationPath } from '../configuration';
 
-import path from 'path';
-
-export class Parser {
-  public static async parse(): Promise<Options | Error> {
+export class Cloner {
+  public static async clone(): Promise<Options | Error> {
     const options = new Options();
-    const config = require(path.resolve(__dirname, 'git-cloner.config.js'));
+
+    const configurationPath = findConfigurationPath();
+    if (configurationPath === undefined) {
+      return new Error(
+        'git-cloner.config.js configuration file not found in root directory.'
+      );
+    }
+
+    const config = findConfiguration(configurationPath).results;
 
     if (!config) {
-      return new Error('git-cloner.config.js configuration file not found!');
+      return new Error(
+        'git-cloner.config.js configuration file cannot be loaded.'
+      );
     }
+
+    console.log(`--- CONFIG ---`);
+    console.log(config);
 
     try {
       const client = new ApolloClient(config.apollo);
@@ -36,6 +36,7 @@ export class Parser {
         );
       }
 
+      console.log(`--- REPOSOTORIES ---`);
       console.log(options.repositories);
       // let repo: Repository;
       for (const repo of options.repositories) {

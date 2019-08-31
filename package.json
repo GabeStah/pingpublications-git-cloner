@@ -1,6 +1,6 @@
 {
   "name": "@pingpublications/git-cloner",
-  "version": "0.0.111",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack && yalc publish",
@@ -12,12 +12,19 @@
   "dependencies": {
     "apollo-boost": "^0.3.1",
     "graphql": "^14.3.1",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.15",
+    "node-fetch": "^2.6.0",
     "nodegit": "^0.24.3"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
+    "@types/js-yaml": "^3.12.1",
+    "@types/lodash": "^4.14.138",
     "@types/node": "^11.13.9",
+    "@types/node-fetch": "^2.5.0",
     "@types/nodegit": "^0.24.6",
+    "@types/resolve": "^0.0.8",
     "@types/webpack-env": "^1.13.9",
     "clean-webpack-plugin": "^2.0.1",
     "dotenv": "^8.0.0",

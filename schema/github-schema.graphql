@@ -5494,7 +5494,7 @@ type Repository implements Node & ProjectOwner & RegistryPackageOwner & Reposito
   nameWithOwner: String!
   "A Git object in the repository"
   object(
-    #A Git revision expression suitable for rev-parse
+    #A Git revision expression suitable for rev-clone
     expression: String,
     #The Git object ID
     oid: GitObjectID
